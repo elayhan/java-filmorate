@@ -9,13 +9,15 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class User {
     @EqualsAndHashCode.Include
-    private int id;
+    private Long id;
     @Email
     @NotBlank
     private String email;
@@ -24,4 +26,6 @@ public class User {
     private String name;
     @Past
     private LocalDate birthday;
+
+    private final Set<Long> friends = new HashSet<>();
 }
