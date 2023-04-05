@@ -17,7 +17,6 @@ import java.util.Set;
 public class FilmController {
     private final FilmService filmService;
 
-
     @PostMapping
     public Film createFilm(@Valid @RequestBody Film film) {
         validate(film);

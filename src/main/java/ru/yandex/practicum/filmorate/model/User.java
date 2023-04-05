@@ -21,7 +21,7 @@ public class User {
     @Email
     @NotBlank
     private String email;
-    @Pattern(regexp = "^\\S+$")
+    @Pattern(regexp = "^\\S+$", message = "Логин не должен содержать пробелы.")
     private String login;
     private String name;
     @Past
