@@ -25,13 +25,13 @@ select * from film;
 select * from film where film_id = filmId; 
 
 -- Получить топ N самых популярных фильмов 
-select f.* from film f
-join (select film_id
-            ,count(user_id) 
+select f.*  from film f
+left join (select film_id
+            ,count(user_id) cnt
        from film_likes
       group by film_id 
-      order by 2 desc
-      limit N) fl on f.film_id = fl.film_id
+      limit 10) fl on f.film_id = fl.film_id
+order by fl.cnt desc nulls last;
 
 
 -- Поставить лайк фильму(filmId) от пользователя (userId)
