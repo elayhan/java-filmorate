@@ -35,7 +35,7 @@ public class FilmController {
     }
 
     @GetMapping("/{filmId}")
-    public Optional<Film> findFilmById(@PathVariable Long filmId) {
+    public Film findFilmById(@PathVariable Long filmId) {
         return filmService.findFilmById(filmId);
     }
 

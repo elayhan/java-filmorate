@@ -10,7 +10,6 @@ import java.util.HashSet;
 import java.util.Optional;
 
 @Component
-@Slf4j
 public class InMemoryFilmStorage implements FilmStorage {
     private final HashSet<Film> films = new HashSet<>();
     private Long id = 0L;
@@ -24,7 +23,6 @@ public class InMemoryFilmStorage implements FilmStorage {
     public Film createFilm(Film film) {
         film.setId(++id);
         if (films.add(film)) {
-            log.debug("Добавлен фильм: {}", film);
             return film;
         }
         throw new ValidationException("Такой фильм уже есть в списке!");
@@ -34,7 +32,6 @@ public class InMemoryFilmStorage implements FilmStorage {
     public Film updateFilm(Film film) {
         if (films.remove(film)) {
             films.add(film);
-            log.debug("Изменен фильм id: {} на {}", film.getId(), film);
             return film;
         }
         throw new NotFoundException("Нельзя обновить фильм, которого еще нет в списке");
