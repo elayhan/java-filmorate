@@ -18,14 +18,11 @@ public class MpaDbStorage implements MpaStorage {
     @Override
     public Optional<Mpa> findMpaById(int id) {
         String getMpaByIdSQL = "select rate_id, rate_name from mpaa_rate where rate_id = ?";
-        Mpa mpa = null;
         try {
-            mpa = jdbcTemplate.queryForObject(getMpaByIdSQL, new MpaRowMapper(), id);
-        } catch (EmptyResultDataAccessException ignored) {
-
+            return Optional.ofNullable(jdbcTemplate.queryForObject(getMpaByIdSQL, new MpaRowMapper(), id));
+        } catch (EmptyResultDataAccessException ex) {
+            return Optional.empty();
         }
-
-        return Optional.ofNullable(mpa);
     }
 
     @Override

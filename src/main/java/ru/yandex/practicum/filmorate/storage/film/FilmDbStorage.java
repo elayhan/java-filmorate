@@ -1,6 +1,7 @@
 package ru.yandex.practicum.filmorate.storage.film;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Primary;
 import org.springframework.dao.DuplicateKeyException;
@@ -26,6 +27,7 @@ import java.util.Set;
 @Component
 @Primary
 @RequiredArgsConstructor
+@Slf4j
 public class FilmDbStorage implements FilmStorage {
     private final JdbcTemplate jdbcTemplate;
 
@@ -61,8 +63,8 @@ public class FilmDbStorage implements FilmStorage {
 
         try {
             jdbcTemplate.update(addFilmGenreSQL, filmId, genreId);
-        } catch (DuplicateKeyException ignored) {
-
+        } catch (DuplicateKeyException ex) {
+            log.warn("Жанр id:{} у фильма  id:{} не может повторяться", genreId, filmId);
         }
     }
 

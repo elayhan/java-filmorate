@@ -1,6 +1,7 @@
 package ru.yandex.practicum.filmorate.storage.like;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -9,6 +10,7 @@ import ru.yandex.practicum.filmorate.model.User;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class LikeDbStorage implements LikeStorage {
     private final JdbcTemplate jdbcTemplate;
 
@@ -18,8 +20,8 @@ public class LikeDbStorage implements LikeStorage {
         try {
             jdbcTemplate.update("INSERT INTO FILM_USER_LIKE (FILM_ID, USER_ID) VALUES (?, ?)",
                     film.getId(), user.getId());
-        } catch (DuplicateKeyException ignored) {
-
+        } catch (DuplicateKeyException ex) {
+            log.warn("Попытка поставить повторный лайк");
         }
     }
 

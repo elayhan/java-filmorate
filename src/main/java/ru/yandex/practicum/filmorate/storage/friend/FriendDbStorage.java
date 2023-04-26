@@ -1,6 +1,7 @@
 package ru.yandex.practicum.filmorate.storage.friend;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Primary;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -14,6 +15,7 @@ import java.util.Set;
 @Component
 @Primary
 @RequiredArgsConstructor
+@Slf4j
 public class FriendDbStorage implements FriendStorage {
     private final JdbcTemplate jdbcTemplate;
 
@@ -22,8 +24,8 @@ public class FriendDbStorage implements FriendStorage {
         String insertFriendSQL = "INSERT INTO FRIEND (USER_ID,FRIEND_ID) VALUES (?,?)";
         try {
             jdbcTemplate.update(insertFriendSQL, currentUser.getId(), addingUser.getId());
-        } catch (DuplicateKeyException ignored) {
-
+        } catch (DuplicateKeyException ex) {
+            log.warn("Повторное добавление в друзья");
         }
     }
 
