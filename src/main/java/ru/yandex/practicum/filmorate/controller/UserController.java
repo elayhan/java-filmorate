@@ -7,7 +7,6 @@ import ru.yandex.practicum.filmorate.service.UserService;
 
 import javax.validation.Valid;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 @RestController()
@@ -38,7 +37,7 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    public Optional<User> getUserById(@PathVariable Long userId) {
+    public User getUserById(@PathVariable Long userId) {
         return userService.findUserById(userId);
     }
 

@@ -8,7 +8,6 @@ import ru.yandex.practicum.filmorate.service.FilmService;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
-import java.util.Optional;
 import java.util.Set;
 
 @RestController()
@@ -35,7 +34,7 @@ public class FilmController {
     }
 
     @GetMapping("/{filmId}")
-    public Optional<Film> findFilmById(@PathVariable Long filmId) {
+    public Film findFilmById(@PathVariable Long filmId) {
         return filmService.findFilmById(filmId);
     }
 
